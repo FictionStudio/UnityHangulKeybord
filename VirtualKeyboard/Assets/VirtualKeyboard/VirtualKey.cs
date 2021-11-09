@@ -1,48 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class VirtualKey : MonoBehaviour {
-
-    static public VirtualKeyboard _Keybord = null;
-    public enum kType { kCharacter, kOther, kReturn, kSpace, kBackspace, kShift, kTab, kCapsLock, kHangul}
-    public char KeyCharacter;
-    public kType KeyType = kType.kCharacter;
-    
-    private bool mKeepPresed;
-    public bool KeepPressed
+namespace VirtualKeyBoard
+{
+    public class VirtualKey : MonoBehaviour
     {
-        set { mKeepPresed = value; }
-        get { return mKeepPresed; }
-    }
+        static public VirtualKeyboard _Keybord = null;
+        public enum kType { kCharacter, kOther, kReturn, kSpace, kBackspace, kShift, kTab, kCapsLock, kHangul }
+        public char KeyCharacter;
+        public kType KeyType = kType.kCharacter;
 
-	// Use this for initialization
-	void Start () {
-        UnityEngine.UI.Button _button = gameObject.GetComponent<UnityEngine.UI.Button>();
-        if(_button != null)
+        private bool mKeepPresed;
+        public bool KeepPressed
         {
-            _button.onClick.AddListener(onKeyClick);
+            set { mKeepPresed = value; }
+            get { return mKeepPresed; }
+        }
+
+        void Start()
+        {
+            UnityEngine.UI.Button _button = gameObject.GetComponent<UnityEngine.UI.Button>();
+            if (_button != null)
+            {
+                _button.onClick.AddListener(onKeyClick);
+            }
+        }
+
+        void onKeyClick()
+        {
+            if (_Keybord != null)
+            {
+                _Keybord.KeyDown(this);
+            }
         }
     }
-
-    void onKeyClick()
-    {
-        //VirtualKeyboard _keybord = GameObject.FindObjectOfType< VirtualKeyboard>();
-        if(_Keybord != null)
-        {
-            _Keybord.KeyDown(this);
-        }
-    }
-
-    // Update is called once per frame
-    void Update () {
-
-	    if(KeepPressed)
-        {
-            //do something
-        }
-	}
-
-
-
-    
 }
